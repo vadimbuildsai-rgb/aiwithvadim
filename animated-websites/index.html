@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Learn how I generate animated websites · Course waitlist · @aiwithvadim</title>
+<meta name="description" content="The course is being built now. Learn how to generate animated websites with AI. Opens early 2027. Join the waitlist for first access.">
+<meta name="theme-color" content="#07070d">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23050505'/%3E%3Ccircle cx='21' cy='11' r='6' fill='%23c98a4b'/%3E%3Crect x='6' y='18' width='16' height='3' fill='%23f4f1ec'/%3E%3Crect x='6' y='23' width='10' height='3' fill='%23f4f1ec'/%3E%3C/svg%3E">
+<meta property="og:title" content="Learn how I generate animated websites">
+<meta property="og:description" content="Course waitlist. Join while it's being built.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#060609;--bg2:#0b0b12;--ink:#f4f2fb;--mute:#9a98ad;--dim:#6c6a80;--line:rgba(255,255,255,.07);--lime:#c8ff1a;--pink:#ff3d8b;--orange:#ff7a1a;--grad:linear-gradient(95deg,var(--lime),var(--pink) 50%,var(--orange));--grad2:linear-gradient(95deg,var(--pink),var(--orange));--glass:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.015));--edge:linear-gradient(150deg,rgba(255,255,255,.18),rgba(255,255,255,.04) 40%,rgba(255,61,139,.22) 75%,rgba(255,122,26,.18));--ease:cubic-bezier(.2,.7,.2,1)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font:500 16px/1.65 Nunito,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:rgba(255,61,139,.35)}
+.aura{position:fixed;inset:0;z-index:-2;pointer-events:none;background:radial-gradient(60vmax 40vmax at 15% -10%,rgba(255,61,139,.13),transparent 60%),radial-gradient(50vmax 36vmax at 95% 10%,rgba(255,122,26,.08),transparent 60%),radial-gradient(50vmax 40vmax at 50% 110%,rgba(200,255,26,.05),transparent 60%)}
+.grain{position:fixed;inset:-50%;z-index:-1;pointer-events:none;opacity:.07;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.wrap{max-width:1080px;margin:0 auto;padding:24px 22px 48px}
+.narrow{max-width:680px;margin-left:auto;margin-right:auto}
+.top{display:flex;justify-content:space-between;align-items:center;font:700 11px/1 Nunito;letter-spacing:.2em;text-transform:uppercase;color:var(--mute)}
+.top a{color:var(--ink);text-decoration:none}
+.pill{padding:9px 14px;border-radius:99px;display:inline-flex;gap:9px;align-items:center;border:1px solid transparent;background:linear-gradient(var(--bg2),var(--bg2)) padding-box,var(--edge) border-box;color:var(--ink)}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--lime);box-shadow:0 0 8px rgba(200,255,26,.7);animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.35}}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font:700 11px/1 Nunito;letter-spacing:.26em;text-transform:uppercase;color:var(--mute);margin-bottom:18px}
+.eyebrow::before{content:"";width:18px;height:1px;background:var(--grad2)}
+h1,h2,h3{font-family:Fredoka,Nunito,system-ui,sans-serif;font-weight:600;letter-spacing:-.02em}
+h1{font-size:clamp(42px,8.4vw,88px);line-height:.98;margin:96px auto 26px;text-align:center;max-width:900px}
+h1 .g{background:var(--grad);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 12s ease-in-out infinite alternate;filter:drop-shadow(0 0 28px rgba(255,61,139,.18))}
+@keyframes shimmer{to{background-position:100% 0}}
+h2{font-size:clamp(30px,4.6vw,46px);line-height:1.05;margin-bottom:14px}
+h3{font-size:19px;line-height:1.25;margin-bottom:6px;font-weight:600}
+.sub{font-size:clamp(16px,1.7vw,18.5px);max-width:580px;margin:0 auto;text-align:center;color:#c9c7d8}
+.sub b{color:#fff;font-weight:700}
+.mute{color:var(--mute)}.small{font-size:13px;color:var(--dim)}
+section{padding:140px 0 0}
+.head{max-width:620px;margin-bottom:40px}
+.head.c{margin-left:auto;margin-right:auto;text-align:center}
+/* glass */
+.glass{position:relative;border-radius:24px;border:1px solid transparent;background:var(--glass) padding-box,linear-gradient(var(--bg2),var(--bg2)) padding-box,var(--edge) border-box;box-shadow:0 1px 0 rgba(255,255,255,.05) inset,0 30px 60px -30px rgba(0,0,0,.8)}
+/* gate */
+.gate{margin:48px auto 0;max-width:560px;padding:10px;border-radius:99px;transition:box-shadow .4s}
+.gate:focus-within{box-shadow:0 0 0 1px rgba(255,61,139,.25),0 0 40px -6px rgba(255,61,139,.35),0 30px 60px -30px rgba(0,0,0,.8)}
+.gform{display:flex;gap:8px}
+.gform input{flex:1;min-width:0;font:600 16px Nunito;padding:14px 18px;border:0;border-radius:99px;background:transparent;color:var(--ink)}
+.gform input::placeholder{color:var(--dim)}
+.gform input:focus{outline:none}
+.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;cursor:pointer;background:var(--grad2);color:#fff;font:800 15px/1 Nunito;letter-spacing:.01em;padding:16px 24px;border-radius:99px;text-decoration:none;white-space:nowrap;box-shadow:0 6px 20px -6px rgba(255,61,139,.55);transition:transform .25s var(--ease),box-shadow .35s var(--ease),filter .25s}
+.btn:hover{transform:translateY(-1px);box-shadow:0 10px 30px -6px rgba(255,61,139,.7),0 0 48px -8px rgba(255,122,26,.55);filter:saturate(1.1)}
+.btn:active{transform:translateY(0) scale(.98)}
+.btn:focus-visible{outline:2px solid var(--lime);outline-offset:3px}
+.btn:disabled{opacity:.7;cursor:wait}
+.btn.ghost{background:linear-gradient(var(--bg2),var(--bg2)) padding-box,var(--edge) border-box;border:1px solid transparent;box-shadow:none}
+.btn.ghost:hover{box-shadow:0 0 30px -10px rgba(200,255,26,.45)}
+.msg{text-align:center;margin-top:16px}.msg.err{color:#ff8fb6}
+.trust{display:flex;justify-content:center;gap:22px;flex-wrap:wrap;margin-top:26px;font:700 11px Nunito;letter-spacing:.18em;text-transform:uppercase;color:var(--dim)}
+.trust span::before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--lime);margin-right:9px;vertical-align:2px;opacity:.8}
+@media(max-width:520px){.gate{border-radius:22px}.gform{flex-direction:column}.gform input{text-align:center}.btn{width:100%}}
+/* reveal */
+#joined[hidden]{display:none}
+#joined{margin:48px auto 0;max-width:620px;padding:34px 28px;animation:pop .7s var(--ease) both}
+#joined::after{content:"";position:absolute;inset:-1px;border-radius:inherit;pointer-events:none;box-shadow:0 0 70px -20px rgba(200,255,26,.35)}
+@keyframes pop{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
+#joined h2{margin-bottom:10px}
+.check{width:44px;height:44px;margin-bottom:18px}
+.check circle{stroke:rgba(200,255,26,.35)}.check path{stroke:var(--lime);stroke-dasharray:40;stroke-dashoffset:40;animation:draw .7s .25s ease forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.steps{list-style:none;margin-top:20px;counter-reset:s}
+.steps li{counter-increment:s;display:flex;gap:14px;padding:14px 0;border-top:1px solid var(--line)}
+.steps li::before{content:"0" counter(s);font:600 14px Fredoka;color:var(--orange);min-width:24px}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+/* content */
+@media(min-width:720px){.grid.learn{grid-template-columns:repeat(6,1fr)}.grid.learn>*{grid-column:span 2}.grid.learn>*:nth-child(n+4){grid-column:span 3}}
+.grid{display:grid;gap:14px}
+@media(min-width:720px){.grid.two{grid-template-columns:1fr 1fr}.grid.three{grid-template-columns:repeat(3,1fr)}}
+.card{padding:26px;transition:transform .45s var(--ease),box-shadow .45s var(--ease)}
+.card:hover{transform:translateY(-2px);box-shadow:0 1px 0 rgba(255,255,255,.05) inset,0 0 50px -24px rgba(255,61,139,.5)}
+.card p{font-size:15px}
+.num{display:block;font:600 13px Fredoka;margin-bottom:22px;color:var(--dim)}
+.num b{font-weight:600;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+ul.tick{list-style:none}
+ul.tick li{padding:13px 0 13px 28px;border-top:1px solid var(--line);position:relative;font-size:15px}
+ul.tick li:first-child{border-top:0}
+ul.tick li::before{content:"";position:absolute;left:2px;top:22px;width:8px;height:8px;border-radius:50%;background:var(--lime);box-shadow:0 0 10px rgba(200,255,26,.5)}
+ul.tick.no li::before{background:#3a3848;box-shadow:none}
+details{border-top:1px solid var(--line)}
+details:last-child{border-bottom:1px solid var(--line)}
+summary{list-style:none;cursor:pointer;padding:22px 44px 22px 0;font:500 18px Fredoka;position:relative;transition:color .2s}
+summary:hover{color:#fff}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"";position:absolute;right:6px;top:50%;width:12px;height:12px;margin-top:-6px;background:linear-gradient(var(--mute),var(--mute)) center/12px 1.5px no-repeat,linear-gradient(var(--mute),var(--mute)) center/1.5px 12px no-repeat;transition:transform .3s var(--ease)}
+details[open] summary::after{transform:rotate(45deg)}
+details p{padding:0 0 22px;color:#bdbbcc;max-width:620px}
+.cta{padding:72px 24px;text-align:center;overflow:hidden}
+.cta::before{content:"";position:absolute;left:50%;top:-40%;width:70%;height:90%;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(255,61,139,.22),transparent);filter:blur(20px);pointer-events:none}
+.cta > *{position:relative}
+.foot{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:100px;padding-top:22px;border-top:1px solid var(--line);font:700 11px Nunito;letter-spacing:.18em;text-transform:uppercase;color:var(--dim)}
+.foot a{color:inherit;text-decoration:none}.foot a:hover{color:var(--ink)}
+.rv{opacity:0;transform:translateY(18px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+@media(max-width:640px){.wrap{padding:18px 18px 40px}h1{margin-top:64px}section{padding-top:96px}.card{padding:22px}.cta{padding:52px 20px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.rv{opacity:1;transform:none}.check path{stroke-dashoffset:0}}
+</style>
+</head>
+<body>
+<div class="aura" aria-hidden="true"></div><div class="grain" aria-hidden="true"></div>
+<main class="wrap">
+
+<div class="top"><a href="https://instagram.com/aiwithvadim" target="_blank" rel="noopener">@aiwithvadim</a><span class="pill"><span class="dot"></span>Course in progress</span></div>
+
+<!-- ======= HERO ======= -->
+<header>
+<h1>People keep asking how I make <span class="g">animated websites.</span></h1>
+<p class="sub">So I'm turning it into a course: <b>my exact process</b>, step by step. It's being built right now. Join the waitlist and you'll hear first.</p>
+
+<!-- Email capture -->
+<div class="gate glass" id="gate">
+ <form id="wform" class="gform" novalidate>
+  <input type="email" id="wemail" required placeholder="you@email.com" autocomplete="email" aria-label="Email address">
+  <button type="submit" class="btn" id="wbtn">Join the waitlist</button>
+ </form>
+</div>
+<p class="small msg" id="wmsg">First access when it opens in early 2027. No spam.</p>
+
+<!-- After-signup reveal (replaces the gate in place) -->
+<div id="joined" class="glass" hidden aria-live="polite">
+ <svg class="check" viewBox="0 0 44 44" fill="none"><circle cx="22" cy="22" r="21" /><path d="M13 22.5l6 6 12-13" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+ <span class="eyebrow">You're on the list</span>
+ <h2>Spot saved.</h2>
+ <p class="mute">You'll get first access when the course opens.</p>
+ <ol class="steps">
+  <li><div><b>Watch your inbox.</b> <span class="mute">Launch email goes to <span id="joinedEmail">your email</span>. Expected early 2027.</span></div></li>
+  <li><div><b>Tell me what to cover.</b> <span class="mute">DM me on Instagram @aiwithvadim with the one thing you most want to learn. It shapes the lessons.</span></div></li>
+  <li><div><b>Send it to a friend</b> <span class="mute">who keeps asking you the same question.</span></div></li>
+ </ol>
+ <div class="row"><a class="btn" href="https://instagram.com/aiwithvadim" target="_blank" rel="noopener">DM me on Instagram</a><button class="btn ghost" id="share" type="button">Copy page link</button></div>
+</div>
+<div class="trust"><span>Custom-coded</span><span>Scroll-driven motion</span><span>Mobile-first</span></div>
+</header>
+
+<!-- ======= WHAT YOU'LL LEARN ======= -->
+<section>
+ <div class="head rv"><span class="eyebrow">Inside the course</span><h2>What you'll learn.</h2></div>
+ <div class="grid learn">
+  <div class="card glass rv"><span class="num"><b>01</b> / 05</span><h3>The setup</h3><p class="mute">The tools I use and how they fit together.</p></div>
+  <div class="card glass rv"><span class="num"><b>02</b> / 05</span><h3>Generating the site</h3><p class="mute">Going from an idea to a full page with AI.</p></div>
+  <div class="card glass rv"><span class="num"><b>03</b> / 05</span><h3>Making it move</h3><p class="mute">Adding scroll animation that feels smooth.</p></div>
+  <div class="card glass rv"><span class="num"><b>04</b> / 05</span><h3>Polished on phones</h3><p class="mute">Keeping the motion fast and clean on mobile.</p></div>
+  <div class="card glass rv"><span class="num"><b>05</b> / 05</span><h3>Taking it live</h3><p class="mute">Putting your site on a real link.</p></div>
+ </div>
+</section>
+
+<!-- ======= FAQ ======= -->
+<section class="narrow">
+ <div class="head rv"><span class="eyebrow">FAQ</span><h2>Questions.</h2></div>
+ <div class="rv">
+  <details><summary>When does it open?</summary><p>Early 2027.</p></details>
+  <details><summary>Do I need to code?</summary><p>No. Some comfort with tech helps.</p></details>
+  <details><summary>What do I get for joining?</summary><p>First access when it opens.</p></details>
+  <details><summary>Is joining free?</summary><p>Yes. It's just your email.</p></details>
+ </div>
+</section>
+
+<!-- ======= FINAL CTA ======= -->
+<section class="rv">
+ <div class="cta glass">
+  <span class="eyebrow">Course in progress</span>
+  <h2>Stop asking how. <span style="white-space:nowrap;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent">Learn it.</span></h2>
+  <p class="mute" style="margin:0 auto 28px;max-width:420px">Get first access when it opens.</p>
+  <a class="btn" href="#gate" id="toTop">Join the waitlist</a>
+ </div>
+</section>
+
+<div class="foot"><a href="https://instagram.com/aiwithvadim" target="_blank" rel="noopener">@aiwithvadim</a><span>Instagram · X</span></div>
+</main>
+
+<script>
+/* ============================================================
+   EMAIL CAPTURE — Supabase project "course-waitlist"
+   Table public.waitlist, RLS: anon may INSERT only (cannot read).
+   The anon key below is public by design and safe in a web page.
+   ============================================================ */
+const WAITLIST_TAG = 'course-waitlist';
+const WAITLIST_STUB = false;
+const SUPABASE_URL = 'https://besxqrbuxbyyohwfqoko.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJlc3hxcmJ1eGJ5eW9od2Zxb2tvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM4MzE4MjQsImV4cCI6MjEwOTQwNzgyNH0.Yavxv3euf5qh-qlXQGArsbEjflo6ov3CeFlxNiYCrAI';
+
+async function submitWaitlist(email, meta = {}) {
+  const body = { email: email.trim().toLowerCase(), tag: WAITLIST_TAG, source: String(meta.source || location.href).slice(0, 500) };
+  if (meta.name) body.name = String(meta.name).slice(0, 200);
+  if (meta.instagram) body.instagram = String(meta.instagram).slice(0, 100);
+  let r;
+  try {
+    r = await fetch(SUPABASE_URL + '/rest/v1/waitlist', {
+      method: 'POST',
+      headers: { apikey: SUPABASE_ANON_KEY, Authorization: 'Bearer ' + SUPABASE_ANON_KEY,
+                 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+      body: JSON.stringify(body)
+    });
+  } catch (e) {
+    return { ok: false, error: "Couldn't reach the server. Check your connection and try again." };
+  }
+  // 409 = already on the list -> treat as success
+  if (r.ok || r.status === 409) return { ok: true, duplicate: r.status === 409 };
+  return { ok: false, error: 'Something went wrong. Please try again.' };
+}
+window.submitWaitlist = submitWaitlist;
+
+/* ---------- form + reveal ---------- */
+(function () {
+  const KEY = 'course_waitlist_joined';
+  const gate = document.getElementById('gate'), joined = document.getElementById('joined');
+  const form = document.getElementById('wform'), input = document.getElementById('wemail');
+  const btn = document.getElementById('wbtn'), msg = document.getElementById('wmsg');
+  function reveal(email, scroll) {
+    gate.hidden = true; joined.hidden = false; msg.hidden = true;
+    if (email) document.getElementById('joinedEmail').textContent = email;
+    document.getElementById('toTop').setAttribute('href', '#joined');
+    document.getElementById('toTop').textContent = "You're on the list";
+    if (scroll) joined.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+  const saved = localStorage.getItem(KEY);
+  if (saved) reveal(saved, false);
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const v = input.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) { msg.textContent = 'Please enter a valid email.'; msg.classList.add('err'); input.focus(); return; }
+    msg.classList.remove('err'); btn.disabled = true; btn.textContent = 'Joining...';
+    try {
+      const res = await submitWaitlist(v, { source: location.href });
+      if (!res || !res.ok) throw new Error((res && res.error) || 'not ok');
+      localStorage.setItem(KEY, v); reveal(v, true);
+    } catch (err) {
+      btn.disabled = false; btn.textContent = 'Join the waitlist';
+      msg.textContent = (err && err.message && err.message !== 'not ok') ? err.message : 'Something went wrong. Please try again.'; msg.classList.add('err');
+    }
+  });
+  document.getElementById('share').addEventListener('click', async ev => {
+    const b = ev.currentTarget, url = location.href.split('#')[0];
+    try { await navigator.clipboard.writeText(url); } catch (_) {}
+    b.textContent = 'Link copied'; setTimeout(() => b.textContent = 'Copy page link', 1600);
+  });
+})();
+
+/* ---------- scroll reveals ---------- */
+(function () {
+  const els = document.querySelectorAll('.rv');
+  if (!('IntersectionObserver' in window)) { els.forEach(el => el.classList.add('in')); return; }
+  const io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }), { rootMargin: '0px 0px -8% 0px' });
+  els.forEach((el, i) => { el.style.transitionDelay = (i % 3) * 70 + 'ms'; io.observe(el); });
+})();
+</script>
+</body>
+</html>
