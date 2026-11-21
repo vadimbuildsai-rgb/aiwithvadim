@@ -285,7 +285,8 @@ window.submitWaitlist = submitWaitlist;
 
 /* ---------- hero: the 4-second star intro, then the night-sky video ---------- */
 (function () {
-  const INTRO = 4000, FADE = 500, still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const INTRO = 4000, FADE = 500, FLOW = .34, // FLOW: how fast the stars stream behind the lower sections
+        still = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const born = performance.now();
 
   // The video fades in out of the stars, fades to black just before it ends, and starts again: a loop with no hard cut.
@@ -309,7 +310,8 @@ window.submitWaitlist = submitWaitlist;
   addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(onScroll); } }, { passive: true });
   addEventListener('resize', onScroll); onScroll();
 
-  // Stars rush toward the viewer, slow down over 4 seconds, then keep drifting faintly over the video.
+  // Stars rush toward the viewer and slow down over 4 seconds, then drift faintly over the video. Scrolling down
+  // brings the same rush back: once the video has dissolved, the stars flow on a loop behind every section.
   // The canvas is drawn at the screen's real pixel density, so the stars stay sharp on any display.
   const cv = document.getElementById('stars'), ctx = cv.getContext('2d');
   let W = 0, H = 0, seen = true, last = born;
@@ -323,8 +325,8 @@ window.submitWaitlist = submitWaitlist;
     if (!seen) { last = now; return; }
     const dt = Math.min(now - last, 50) / 1000; last = now;
     const t = Math.min((now - born) / INTRO, 1);
-    const speed = still ? 0 : .012 + 1.5 * Math.pow(1 - t, 3);
-    const dim = (still ? .6 : 1 - .5 * Math.max(0, (t - .7) / .3)) * (1 - .35 * depth);
+    const speed = still ? 0 : .012 + 1.5 * Math.pow(1 - t, 3) + FLOW * depth;
+    const calm = still ? .6 : 1 - .5 * Math.max(0, (t - .7) / .3), dim = calm + (.9 - calm) * depth;
     ctx.clearRect(0, 0, W, H);
     const cx = W / 2, cy = H * .46, f = Math.max(W, H) * .62;
     for (const s of stars) {
