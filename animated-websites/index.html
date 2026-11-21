@@ -33,6 +33,9 @@ a{color:inherit}
    while the stars keep drifting behind every section. */
 .sky{position:fixed;inset:0;z-index:0;pointer-events:none;--p:0;opacity:calc(1 - var(--p));transform:translateY(calc(var(--p) * -6vh)) scale(calc(1 + var(--p) * .1));filter:blur(calc(var(--p) * 8px));will-change:opacity,transform,filter}
 .sky video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center bottom;opacity:0}
+/* An iPhone in Low Power Mode (and some in-app browsers) will not start a video by itself and draws a play button
+   over it instead. The video is only a backdrop, so the button is hidden; the first touch starts it (see the script). */
+.sky video::-webkit-media-controls,.sky video::-webkit-media-controls-panel,.sky video::-webkit-media-controls-start-playback-button,.sky video::-webkit-media-controls-overlay-play-button,.sky video::-webkit-media-controls-play-button{display:none!important;-webkit-appearance:none!important;opacity:0!important;pointer-events:none!important}
 #stars{position:fixed;inset:0;z-index:0;width:100%;height:100%;pointer-events:none}
 /* The sky and the stars fade to black at the top and bottom edges of the screen, so they melt into the phone's
    status bar and browser bar instead of ending in a hard line. */
@@ -137,7 +140,7 @@ details p{padding:0 0 24px;color:var(--mute);max-width:620px}
 
 <!-- ======= HERO ======= -->
 <div class="sky" id="sky" aria-hidden="true">
-<video id="bg" muted autoplay playsinline preload="auto" poster="video/hero-poster.jpg">
+<video id="bg" muted autoplay playsinline webkit-playsinline disableremoteplayback disablepictureinpicture x-webkit-airplay="deny" preload="auto" poster="video/hero-poster.jpg">
  <source src="video/hero-4k.mp4" type="video/mp4" media="(min-width: 1100px)">
  <source src="video/hero.mp4" type="video/mp4">
 </video>
@@ -319,6 +322,9 @@ window.submitWaitlist = submitWaitlist;
   };
   const begin = () => { v.play().catch(() => {}); setTimeout(() => fade(1), still ? 0 : Math.max(0, INTRO - 900 - (performance.now() - born))); };
   if (v.readyState >= 3) begin(); else v.addEventListener('canplay', begin, { once: true });
+  // where the phone refused to start it, the first touch or scroll does
+  const nudge = () => { if (v.paused) v.play().catch(() => {}); };
+  for (const e of ['touchstart', 'pointerdown', 'scroll', 'keydown']) addEventListener(e, nudge, { once: true, passive: true });
   v.addEventListener('timeupdate', () => { if (!fadingOut && v.duration && v.duration - v.currentTime <= 0.55) { fadingOut = true; fade(0); } });
   v.addEventListener('ended', () => { cancelAnimationFrame(vraf); v.style.opacity = '0'; setTimeout(() => { v.currentTime = 0; fadingOut = false; v.play().catch(() => {}); fade(1); }, 100); });
 
