@@ -32,7 +32,10 @@ a{color:inherit}
    sinks, softens and dissolves into black (--p, set by the script, goes 0 to 1 over the first screen and a bit),
    while the stars keep drifting behind every section. */
 .sky{position:fixed;inset:0;z-index:0;pointer-events:none;--p:0;opacity:calc(1 - var(--p));transform:translateY(calc(var(--p) * -6vh)) scale(calc(1 + var(--p) * .1));filter:blur(calc(var(--p) * 8px));will-change:opacity,transform,filter}
-.sky video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center bottom;opacity:0}
+.sky video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center bottom;opacity:0;filter:saturate(1.55) brightness(1.07) contrast(1.04)}
+/* a soft bloom over the video: warm light around the figure, deep blue rising from the horizon, a violet haze up top */
+.bloom{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease;mix-blend-mode:screen;background:radial-gradient(ellipse 60% 34% at 50% 60%,rgba(255,158,64,.34),transparent 70%),radial-gradient(ellipse 120% 46% at 50% 104%,rgba(40,120,255,.5),transparent 72%),radial-gradient(ellipse 80% 40% at 50% 6%,rgba(120,90,255,.2),transparent 70%)}
+body.sky-on .bloom{opacity:1}
 /* An iPhone in Low Power Mode (and some in-app browsers) will not start a video by itself and draws a play button
    over it instead. The video is only a backdrop, so the button is hidden; the first touch starts it (see the script). */
 .sky video::-webkit-media-controls,.sky video::-webkit-media-controls-panel,.sky video::-webkit-media-controls-start-playback-button,.sky video::-webkit-media-controls-overlay-play-button,.sky video::-webkit-media-controls-play-button{display:none!important;-webkit-appearance:none!important;opacity:0!important;pointer-events:none!important}
@@ -70,10 +73,10 @@ h3{font-size:26px;line-height:1.15;margin-bottom:8px}
 .gform input:focus{outline:none}
 .btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;cursor:pointer;background:#fff;color:#000;font:600 15px/1 Inter,system-ui,sans-serif;min-height:48px;padding:0 24px;border-radius:99px;text-decoration:none;white-space:nowrap;transition:transform .25s var(--ease),box-shadow .35s var(--ease)}
 /* the white buttons glow, and the glow breathes slowly; the email pill around the first one glows with it */
-.btn:not(.ghost){box-shadow:0 0 0 1px rgba(255,255,255,.7),0 0 30px 6px rgba(255,255,255,.7),0 0 90px 22px rgba(255,214,160,.5);animation:glow 2.8s ease-in-out infinite alternate}
-@keyframes glow{to{box-shadow:0 0 0 1px #fff,0 0 46px 12px rgba(255,255,255,.9),0 0 140px 40px rgba(255,214,160,.7)}}
-.btn:not(.ghost):hover{transform:translateY(-1px);animation:none;box-shadow:0 0 0 1px #fff,0 0 54px 14px rgba(255,255,255,.95),0 0 160px 48px rgba(255,214,160,.8)}
-.gate{overflow:visible;box-shadow:inset 0 1px 1px rgba(255,255,255,.1),0 0 80px 0 rgba(255,255,255,.3)}
+.btn:not(.ghost){box-shadow:0 0 0 1px rgba(255,255,255,.55),0 0 22px 3px rgba(255,255,255,.42),0 0 70px 14px rgba(255,214,160,.3);animation:glow 2.8s ease-in-out infinite alternate}
+@keyframes glow{to{box-shadow:0 0 0 1px rgba(255,255,255,.8),0 0 32px 7px rgba(255,255,255,.58),0 0 100px 26px rgba(255,214,160,.42)}}
+.btn:not(.ghost):hover{transform:translateY(-1px);animation:none;box-shadow:0 0 0 1px #fff,0 0 38px 9px rgba(255,255,255,.7),0 0 120px 32px rgba(255,214,160,.5)}
+.gate{overflow:visible;box-shadow:inset 0 1px 1px rgba(255,255,255,.1),0 0 60px -4px rgba(255,255,255,.2)}
 .btn.ghost:hover{transform:translateY(-1px)}
 .btn:active{transform:translateY(0) scale(.98)}
 .btn:focus-visible,summary:focus-visible,a:focus-visible{outline:2px solid #fff;outline-offset:3px;border-radius:99px}
@@ -125,8 +128,9 @@ details p{padding:0 0 24px;color:var(--mute);max-width:620px}
 .foot a{text-decoration:none;padding:10px 0}.foot a:hover{color:#fff}
 
 /* motion: the hero arrives piece by piece inside the 4-second star intro; sections rise in as they scroll into view */
-.in1,.in2,.in3,.in4,.in5{opacity:0;animation:rise .9s var(--ease) forwards}
-.in1{animation-name:drop;animation-delay:.3s}.in2{animation-delay:.9s}.in3{animation-delay:1.6s}.in4{animation-delay:2.2s}.in5{animation-delay:2.8s}
+.in1,.in2,.in3,.in4,.in5{opacity:0;animation:rise .9s var(--ease) forwards paused}
+body.go .in1,body.go .in2,body.go .in3,body.go .in4,body.go .in5{animation-play-state:running}
+.in1{animation-name:drop;animation-delay:.1s}.in2{animation-delay:.3s}.in3{animation-delay:.8s}.in4{animation-delay:1.2s}.in5{animation-delay:1.6s}
 @keyframes rise{from{opacity:0;transform:translateY(28px);filter:blur(10px)}to{opacity:1;transform:none;filter:none}}
 @keyframes drop{from{opacity:0;transform:translateY(-24px)}to{opacity:1;transform:none}}
 .rv{opacity:0;transform:translateY(40px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
@@ -144,7 +148,9 @@ details p{padding:0 0 24px;color:var(--mute);max-width:620px}
  <source src="video/hero-4k.mp4" type="video/mp4" media="(min-width: 1100px)">
  <source src="video/hero.mp4" type="video/mp4">
 </video>
-<div class="veil"></div><div class="grain"></div>
+<!-- a second copy of the same video: the loop is a cross-fade from the end of one into the start of the other -->
+<video id="bg2" muted playsinline webkit-playsinline disableremoteplayback disablepictureinpicture x-webkit-airplay="deny" preload="none"></video>
+<div class="bloom"></div><div class="veil"></div><div class="grain"></div>
 </div>
 <canvas id="stars" aria-hidden="true"></canvas>
 
@@ -307,26 +313,50 @@ window.submitWaitlist = submitWaitlist;
 
 /* ---------- hero: the 4-second star intro, then the night-sky video ---------- */
 (function () {
-  const INTRO = 4000, FADE = 500, FLOW = .34, // FLOW: how fast the stars stream behind the lower sections
+  const INTRO = 4000, FLOW = .34, // FLOW: how fast the stars stream behind the lower sections
         still = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const born = performance.now();
 
-  // The video fades in out of the stars, fades to black just before it ends, and starts again: a loop with no hard cut.
-  const v = document.getElementById('bg');
-  let vraf = 0, fadingOut = false;
-  const fade = (to) => {
-    cancelAnimationFrame(vraf);
-    const from = parseFloat(v.style.opacity || '0'), start = performance.now();
-    const step = (now) => { const t = Math.min((now - start) / FADE, 1); v.style.opacity = String(from + (to - from) * t); if (t < 1) vraf = requestAnimationFrame(step); };
-    vraf = requestAnimationFrame(step);
+  // Order on load: black with rushing stars, then the sky comes up, and only then the words.
+  // The loop never shows black: near the end of the video a second copy starts from the beginning underneath and the
+  // two cross-fade. If a phone will not start the second copy, the first one simply plays again from the start.
+  const SKY_AT = 1300, SKY_FADE = 1100, WORDS_AFTER = 900, CROSS = 1.1; // ms, ms, ms, seconds
+  const a = document.getElementById('bg'), b = document.getElementById('bg2');
+  const rafs = new WeakMap();
+  const fade = (el, to, ms, done) => {
+    cancelAnimationFrame(rafs.get(el) || 0);
+    const from = parseFloat(el.style.opacity || '0'), start = performance.now();
+    const step = (now) => { const t = Math.min((now - start) / ms, 1); el.style.opacity = String(from + (to - from) * t); if (t < 1) rafs.set(el, requestAnimationFrame(step)); else if (done) done(); };
+    rafs.set(el, requestAnimationFrame(step));
   };
-  const begin = () => { v.play().catch(() => {}); setTimeout(() => fade(1), still ? 0 : Math.max(0, INTRO - 900 - (performance.now() - born))); };
-  if (v.readyState >= 3) begin(); else v.addEventListener('canplay', begin, { once: true });
+  let live = a, crossing = false, shown = false;
+  const words = () => document.body.classList.add('go');
+  const show = () => {
+    if (shown) return; shown = true;
+    setTimeout(() => { fade(a, 1, still ? 0 : SKY_FADE); document.body.classList.add('sky-on'); setTimeout(words, still ? 0 : WORDS_AFTER); }, still ? 0 : Math.max(0, SKY_AT - (performance.now() - born)));
+  };
+  const begin = () => { a.play().catch(() => {}); show(); };
+  if (a.readyState >= 3) begin(); else a.addEventListener('canplay', begin, { once: true });
+  setTimeout(words, 4200); // a slow connection never holds the words back for long
   // where the phone refused to start it, the first touch or scroll does
-  const nudge = () => { if (v.paused) v.play().catch(() => {}); };
+  const nudge = () => { if (live.paused) live.play().catch(() => {}); };
   for (const e of ['touchstart', 'pointerdown', 'scroll', 'keydown']) addEventListener(e, nudge, { once: true, passive: true });
-  v.addEventListener('timeupdate', () => { if (!fadingOut && v.duration && v.duration - v.currentTime <= 0.55) { fadingOut = true; fade(0); } });
-  v.addEventListener('ended', () => { cancelAnimationFrame(vraf); v.style.opacity = '0'; setTimeout(() => { v.currentTime = 0; fadingOut = false; v.play().catch(() => {}); fade(1); }, 100); });
+  const watch = (el) => {
+    el.addEventListener('timeupdate', () => {
+      if (el !== live || crossing || !el.duration || el.duration - el.currentTime > CROSS) return;
+      crossing = true;
+      const next = el === a ? b : a;
+      if (!next.currentSrc && !next.src) next.src = el.currentSrc;
+      try { next.currentTime = 0; } catch (_) {}
+      next.play().then(() => {
+        next.style.zIndex = '1'; el.style.zIndex = '0';
+        fade(next, 1, CROSS * 1000, () => { el.pause(); el.style.opacity = '0'; live = next; crossing = false; });
+      }).catch(() => { crossing = false; });
+    });
+    // only reached when the cross-fade could not start: play the same copy again, with no black frame in between
+    el.addEventListener('ended', () => { if (el !== live || crossing) return; el.currentTime = 0; el.play().catch(() => {}); });
+  };
+  watch(a); watch(b);
 
   // Scrolling dissolves the sky: 0 at the top, 1 once the first screen (and a little more) has gone by.
   const sky = document.getElementById('sky');
@@ -350,7 +380,7 @@ window.submitWaitlist = submitWaitlist;
     if (!seen) { last = now; return; }
     const dt = Math.min(now - last, 50) / 1000; last = now;
     const t = Math.min((now - born) / INTRO, 1);
-    const speed = still ? 0 : .012 + 1.5 * Math.pow(1 - t, 3) + FLOW * depth;
+    const speed = still ? 0 : .03 + 1.5 * Math.pow(1 - t, 3) + FLOW * depth;
     const calm = still ? .6 : 1 - .5 * Math.max(0, (t - .7) / .3), dim = calm + (.9 - calm) * depth;
     ctx.clearRect(0, 0, W, H);
     const cx = W / 2, cy = H * .46, f = Math.max(W, H) * .62;
