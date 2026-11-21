@@ -55,6 +55,7 @@ h3{font-size:26px;line-height:1.15;margin-bottom:8px}
 
 /* gate */
 .gate{margin:34px auto 0;width:100%;max-width:560px;padding:8px 8px 8px 24px;border-radius:99px;transition:box-shadow .4s}
+#gate,#joined{scroll-margin-top:38vh}
 .gate:focus-within{box-shadow:inset 0 1px 1px rgba(255,255,255,.1),0 0 0 1px rgba(255,255,255,.35),0 0 44px -8px rgba(255,255,255,.4)}
 .gform{display:flex;gap:10px;align-items:center}
 .gform input{flex:1;min-width:0;font:400 16px Inter,system-ui,sans-serif;padding:12px 0;border:0;background:transparent;color:#fff}
@@ -267,6 +268,15 @@ window.submitWaitlist = submitWaitlist;
       btn.disabled = false; btn.textContent = 'Join the waitlist';
       msg.textContent = (err && err.message && err.message !== 'not ok') ? err.message : 'Something went wrong. Please try again.'; msg.classList.add('err');
     }
+  });
+  // The button at the bottom brings the email box (or the "you're on the list" card) to the middle of the screen,
+  // not jammed against the top edge, and puts the cursor in the box.
+  document.getElementById('toTop').addEventListener('click', ev => {
+    ev.preventDefault();
+    const target = joined.hidden ? gate : joined;
+    const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    target.scrollIntoView({ behavior: calm ? 'auto' : 'smooth', block: 'center' });
+    if (target === gate) setTimeout(() => input.focus({ preventScroll: true }), calm ? 0 : 900);
   });
   document.getElementById('share').addEventListener('click', async ev => {
     const b = ev.currentTarget, url = location.href.split('#')[0];
